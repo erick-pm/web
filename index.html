@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacia coca</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Barra superior -->
+    <div class="barra-superior">
+        <div class="contenedor">
+            <div class="logo">
+                <img src="image/lo.png" alt="Logo FarmaciaCoca">
+            </div>
+            <div class="buscador">
+                <div class="categorias">
+                    <select>
+                        <option>Categorías</option>
+                    </select>
+                </div>
+                <div class="campo-busqueda">
+                    <input type="text" id="buscador" placeholder="Buscador">
+                    <button id="btnBuscar" class="btn btn-primary" onclick="realizarBusqueda()">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú de navegación -->
+    <div class="menu-navegacion">
+        <div class="contenedor">
+            <ul class="menu">
+                <li><a href="Ofertas.html">Ofertas</a></li>
+                <li><a href="Salud_Medicamentos.html">Salud y Medicamentos</a></li>
+                <li><a href="Belleza.html">Belleza</a></li>
+                <li><a href="Cuidado_Personal.html">Cuidado Personal</a></li>
+                <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sección Principal con Carrusel -->
+    <div class="banner-principal">
+        <div class="contenedor">
+            <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicadores del carrusel -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- Slides del carrusel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="image/banner1.jpg" class="d-block w-100" alt="Promoción 1">
+                        <div class="carousel-caption">
+                            <h2>Martes de Descuento</h2>
+                            <p>Hasta 70% de descuento en productos seleccionados</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="image/banner2.jpg" class="d-block w-100" alt="Promoción 2">
+                        <div class="carousel-caption">
+                            <h2>Productos de Belleza</h2>
+                            <p>Las mejores marcas con increíbles descuentos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles del carrusel -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Resultados de búsqueda -->
+        <h2 style="color: aliceblue; text-align: center; margin-top: 2rem;">Productos</h2>
+        <div id="resultados" class="resultados-busqueda container mt-4"></div>
+    </div>
+    <div class="container mt-4">
+        <div class="row" id="product-grid"></div>
+    </div>
+
+    <!-- Script para manejar los productos -->
+    <script>
+        // Definir el array de productos
+        const products = [
+            { id: 1, name: 'Algodon X10G', PRECIO: 3.80, image: "image/algodon.jpg" },
+            { id: 2, name: 'Superal', PRECIO: 2.98, image: 'image/superal.jpg' },
+            { id: 3, name: 'Clopidogrel', PRECIO: 15.99, image: "image/clopidogrel.jpg" },
+            { id: 4, name: 'Algodon X10G', PRECIO: 3.80, image: "image/captrpril.jpg" },
+            { id: 5, name: 'Superal', PRECIO: 2.98, image: 'image/digestan.jpg' },
+            { id: 6, name: 'Clopidogrel', PRECIO: 15.99, image: "image/labial.jpg" },
+        ];
+
+        // Llamar a la función para mostrar los productos
+        displayProducts();
+
+        // Función para mostrar los productos en el grid
+        function displayProducts() {
+            const productGrid = document.getElementById('product-grid');
+            productGrid.innerHTML = ''; // Limpiar el grid antes de agregar productos
+
+            for (let product of products) {
+                const card = `
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">Precio: $${product.PRECIO.toFixed(2)}</p>
+                        <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                    </div>
+                </div>
+            </div>
+            `;
+                productGrid.innerHTML += card; // Agregar la tarjeta al grid
+            }
+        }
+
+    </script>
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+      <!-- Seccion contactos -->
+
+    <div id="contacto" class="contenedor-contactos">
+        <br><br>
+        <h2>Contacto</h2>
+        <div class="row">
+            <!-- Formulario de contacto -->
+            <div class="col-md-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" class="form-control" placeholder="Tu nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" id="email" class="form-control" placeholder="Tu correo electrónico">
+                    </div>
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea id="mensaje" class="form-control" rows="4" placeholder="Escribe tu mensaje"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+            <!-- Mapa de ubicación -->
+            <div class="col-md-6">
+                <h5>Ubicación</h5>
+                <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434332609!2d144.95543121537245!3d-37.817209979751775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf0727e10e72ef7c6!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1631577721409!5m2!1sen!2sau" 
+                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.0760661287836!2d-66.18377155940493!3d-17.36007241130355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e37450a568b5f9%3A0x8649b33ad948aa42!2sAv.%20Sim%C3%B3n%20L%C3%B3pez%201680%2C%20Cochabamba!5e0!3m2!1ses-419!2sbo!4v1733087565048!5m2!1ses-419!2sbo" 
+                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" frameborder="0"></iframe>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+     <!-- Seccion quienes somos -->
+     <div id="quienes-somos" class="containedor-quines-somos">
+       
+        <div class="cont1">
+            <br><br>
+            <h2>Quiénes Somos</h2>
+            <p>Farmacia Coca es un establecimiento de salud comprometido con el bienestar de nuestra comunidad. 
+                Con más de [X] años de experiencia, nos dedicamos a proporcionar servicios farmacéuticos de alta 
+                calidad y atención personalizada a nuestros clientes.</p>
+        </div>
+        <div class="cont1">
+            <br><br>
+            <h2>Nuestra Historia</h2>
+            <p>Fundada en [año] por [nombre del fundador], Farmacia Coca comenzó como un pequeño establecimiento 
+                local con el objetivo de brindar servicios farmacéuticos cercanos y de confianza. A lo largo de 
+                los años, hemos crecido y nos hemos adaptado para ofrecer soluciones integrales de salud.</p>
+        </div>
+
+    </div>
+
+<!-- Footer -->
+<footer class="pie-de-pagina">
+    <div class="contenedor-footer">
+        <!-- Redes sociales -->
+        <div class="redes-sociales">
+            <a href="https://www.facebook.com" target="_blank">
+                <img src="image/facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <img src="image/instagram.png" alt="Instagram">
+            </a>
+            <a href="https://www.twitter.com" target="_blank">
+                <img src="image/twitter.png" alt="Twitter">
+            </a>
+            <a href="https://web.whatsapp.com" target="_blank">
+                <img src="image/whatsapp.png" alt="WhatsApp">
+            </a>
+            <a href="https://www.linkedin.com" target="_blank">
+                <img src="image/linkeind.png" alt="LinkedIn">
+            </a>
+        </div>
+
+        <!-- Políticas y términos -->
+        <div class="politicas">
+            <a href="https://www.example.com/privacy-policy" target="_blank">Política de Privacidad</a>
+            <a href="https://www.example.com/shipping-policy" target="_blank">Política de Envío</a>
+            <a href="https://www.example.com/refund-policy" target="_blank">Política de Reembolso</a>
+            <a href="https://www.example.com/terms-of-service" target="_blank">Términos de Servicio</a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>&copy; 2024 Farmacorp. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+      
+            
+
+
+
+</body>
+    
+</html>
